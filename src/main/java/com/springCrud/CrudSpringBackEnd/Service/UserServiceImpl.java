@@ -1,4 +1,4 @@
-package com.springCrud.CrudSpringBackEnd.Service;
+/*package com.springCrud.CrudSpringBackEnd.Service;
 
 import com.springCrud.CrudSpringBackEnd.Model.ERole;
 import com.springCrud.CrudSpringBackEnd.Model.Role;
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);    }
+        return userRepository.findByEmail(email).orElseThrow();    }
 
     @Override
     public List<UserDto> findAllUsers() {
@@ -105,4 +105,4 @@ public class UserServiceImpl implements UserService{
 
 
 
-}
+}*/

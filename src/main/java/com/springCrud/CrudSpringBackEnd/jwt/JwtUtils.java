@@ -1,17 +1,10 @@
 package com.springCrud.CrudSpringBackEnd.jwt;
 
-import com.springCrud.CrudSpringBackEnd.Service.UserDetailsImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
-
-import java.security.Key;
-import java.util.Date;
-import java.util.logging.Logger;
 
 @Component
 
