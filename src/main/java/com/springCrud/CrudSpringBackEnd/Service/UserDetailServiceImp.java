@@ -18,6 +18,6 @@ public class UserDetailServiceImp implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Load Data From DataBase
 
-        return userRepository.findByEmail(username).orElseThrow(()-> new RuntimeException("User Not Find !!"));
+        return userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User Not Found !!"));
     }
 }

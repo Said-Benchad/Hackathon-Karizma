@@ -19,7 +19,7 @@ public class User implements UserDetails {
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
     String id;
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     String username;
     @Column(name = "email")
     String email;
@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        return this.email;
+        return this.username;
     }
 
     @Override

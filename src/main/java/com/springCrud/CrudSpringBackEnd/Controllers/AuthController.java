@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -54,19 +57,19 @@ public class AuthController implements WebMvcConfigurer {
 
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-        this.doAuthenticate(request.getEmail(), request.getPassword());
-        UserDetails userDetails = UserDetailServiceImp.loadUserByUsername(request.getEmail());
+        this.doAuthenticate(request.getUsername(), request.getPassword());
+        UserDetails userDetails = UserDetailServiceImp.loadUserByUsername(request.getUsername());
         String token = this.helper.generateToken(userDetails);
 
         JwtResponse response = JwtResponse.builder()
                 .jwtToken(token)
                 .username(userDetails.getUsername()).build();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    private void doAuthenticate(String email, String password) {
+    private void doAuthenticate(String username, String password) {
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
         try {
             authenticationManager.authenticate(authentication);
 
@@ -82,10 +85,13 @@ public class AuthController implements WebMvcConfigurer {
     }
 
     @PostMapping("/signup")
-    public User createUser(@RequestBody User user)
-    {
-
-        return userService.createUser(user);
+    public User createUser(@RequestBody User user) {
+        Optional<User> usernameEntry = userRepository.findByUsername(user.getUsername());
+        Optional<User> emailEntry = userRepository.findByUsername(user.getUsername());
+        if(usernameEntry.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists!");
+        else if (emailEntry.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!");
+        } else return userService.createUser(user);
     }
 
 }
