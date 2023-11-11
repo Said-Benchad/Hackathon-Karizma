@@ -57,6 +57,7 @@ public class AuthController implements WebMvcConfigurer {
 
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
+        System.out.println(request.getUsername());
         this.doAuthenticate(request.getUsername(), request.getPassword());
         UserDetails userDetails = UserDetailServiceImp.loadUserByUsername(request.getUsername());
         String token = this.helper.generateToken(userDetails);
@@ -86,6 +87,7 @@ public class AuthController implements WebMvcConfigurer {
 
     @PostMapping("/signup")
     public User createUser(@RequestBody User user) {
+        System.out.println(user);
         Optional<User> usernameEntry = userRepository.findByUsername(user.getUsername());
         Optional<User> emailEntry = userRepository.findByUsername(user.getUsername());
         if(usernameEntry.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists!");

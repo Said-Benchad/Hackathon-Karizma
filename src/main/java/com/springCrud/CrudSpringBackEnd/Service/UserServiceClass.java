@@ -27,6 +27,8 @@ public class UserServiceClass {
     public User createUser(User user)
     {
         user.setId(UUID.randomUUID().toString());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUsername(user.getUsername());
         user.setEmail(user.getEmail());

@@ -52,7 +52,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth-> {
                             try {
-                                auth.requestMatchers(mvcMatcherBuilder.pattern("/auth/signin")).permitAll()
+                                auth.requestMatchers(mvcMatcherBuilder.pattern("/auth/**")).permitAll()
                                         .requestMatchers(mvcMatcherBuilder.pattern("/auth/signup")).permitAll()
                                         .requestMatchers(mvcMatcherBuilder.pattern("/messages"))
 

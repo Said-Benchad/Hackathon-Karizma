@@ -19,10 +19,16 @@ public class User implements UserDetails {
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
     String id;
+    @Column(name = "first_name")
+    String firstName;
+    @Column(name = "last_name")
+    String lastName;
     @Column(name = "username", unique = true)
     String username;
     @Column(name = "email")
     String email;
+    @Column(name="profileImage")
+    String profileImage;
     @JsonProperty(access= JsonProperty.Access.WRITE_ONLY)
     String password;
     @Enumerated(EnumType.STRING)
